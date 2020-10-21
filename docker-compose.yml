@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  identity:
+    build: .
+    image: alastria/identity-lib-py
+    command: echo "TODO"
+    volumes:
+      - .:/code
