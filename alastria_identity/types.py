@@ -1,7 +1,8 @@
 import time
-
 from typing import List
 from dataclasses import dataclass, field
+
+from web3 import Web3
 
 
 @dataclass
@@ -22,8 +23,7 @@ class JwtToken:
 class BasicTransaction:
     to: str = '0x0000000000000000000000000000000000000000'
     data: str = '0x0'
-    gas_limit: int = 0
-    gas_price: int = 0
+    gasPrice: int = 0
     nonce: str = '0x0'
 
 
@@ -40,17 +40,11 @@ class IdentityConfig:
 
 @dataclass
 class UserIdentity:
-    endpoint: str
+    endpoint: Web3
     address: str
     private_key: str
     nonce: int
     transactions: List
-
-
-@dataclass
-class Transaction:
-    # TODO
-    pass
 
 
 @dataclass
@@ -184,6 +178,7 @@ class UnsignedCredential:
                 }
             }
         }
+
 
 @dataclass
 class UnsignedPresentation:
