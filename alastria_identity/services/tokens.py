@@ -7,6 +7,11 @@ from alastria_identity.types import NetworkDid
 
 
 class TokenService:
+    BASE_HEADER = {
+        'alg': 'ES256K',
+        'typ': 'JWT'
+    }
+
     def __init__(self, private_key: str):
         # self.token_signer = TokenSigner()
         # self.token_verifier = TokenVerifier()
@@ -53,22 +58,15 @@ class TokenService:
         :param nbf: (Optional) NotBefore. Token activation date
         :param jti: (Optional) JWTID. JWT unique identifier
         """
-        header = dict()
-        payload = dict()
-
-        header.update(
-            alg='ES256K',
-            typ='JWT'
-        )
-
-        payload.update(
-            iss=iss,
-            gwu=gwu,
-            cbu=cbu,
-            ani=ani,
-            exp=exp,
-            iat=int(time.time())
-        )
+        header = self.BASE_HEADER.copy()
+        payload = {
+            'iss': iss,
+            'gwu': gwu,
+            'cbu': cbu,
+            'ani': ani,
+            'exp': exp,
+            'iat': int(time.time())
+        }
 
         if kid:
             header.update(kid=kid)
@@ -111,26 +109,20 @@ class TokenService:
         :param kid: (Optional) Key identifier. Public key id used to sign the JWT
         :param jwk: (Optional) Public key. Users public key
         """
-        header = dict()
-        payload = dict()
         full_context = ['https://alastria.github.io/identity/artifacts/v1']
-        full_context.extend(context)
         full_types = ['AlastriaSession']
+        full_context.extend(context)
         full_types.extend(type)
 
-        header.update(
-            alg='ES256K',
-            typ='JWT'
-        )
+        header = self.BASE_HEADER.copy()
 
-        payload["@context"] = full_context
-
-        payload.update(
-            type=full_types,
-            iss=iss,
-            alastriaToken=alastria_token,
-            iat=int(time.time())
-        )
+        payload = {
+            '@context': full_context,
+            'type': full_types,
+            'iss': iss,
+            'alastriaToken': alastria_token,
+            'iat': int(time.time())
+        }
 
         if kid:
             header.update(kid=kid)
@@ -183,27 +175,21 @@ class TokenService:
         :param kid: (Optional) Key identifier. Public key id used to sign the JWT
         :param jwk: (Optional) Public key. Users public key
         """
-        header = dict()
-        payload = dict()
         full_context = ['https://alastria.github.io/identity/artifacts/v1']
-        full_context.extend(context)
         full_types = ['AlastriaIdentityCreation']
+        full_context.extend(context)
         full_types.extend(type)
 
-        header.update(
-            alg='ES256K',
-            typ='JWT'
-        )
+        header = self.BASE_HEADER.copy()
 
-        payload["@context"] = full_context
-
-        payload.update(
-            type=full_types,
-            createAlastriaTX=create_alastria_tx,
-            alastriaToken=alastria_token,
-            publicKey=public_key,
-            iat=int(time.time())
-        )
+        payload = {
+            '@context': full_context,
+            'type': full_types,
+            'createAlastriaTX': create_alastria_tx,
+            'alastriaToken': alastria_token,
+            'publicKey': public_key,
+            'iat': int(time.time())
+        }
 
         if kid:
             header.update(kid=kid)
