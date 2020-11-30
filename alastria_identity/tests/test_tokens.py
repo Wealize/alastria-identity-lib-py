@@ -19,7 +19,7 @@ def test_jwt():
     service = TokenService(private_key=private_key)
     signed_jwt = service.sign_jwt(jwt)
 
-    assert service.verify_jwt(signed_jwt) == True
+    assert service.verify_jwt(signed_jwt)
     assert service.decode_jwt(signed_jwt) == jwt
 
 
