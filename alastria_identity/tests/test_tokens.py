@@ -7,7 +7,21 @@ from alastria_identity.types import NetworkDid
 mock_time = Mock()
 mock_time.return_value = time.time()
 
-private_key = '0x2c8a1e61b1106b554c3144d85ee47b7fbf9b760b060f4a61a4541fc3c90f6ca4'
+private_key = '1da6847600b0ee25e9ad9a52abbd786dd2502fa4005dd5af9310b7cc7a3b25db'
+
+def test_jwt():
+    jwt = {
+        "header": {"alg": "ES256K", "typ": "JWT"},
+        "payload": {"iss": "iss", "gwu": "gwu", "cbu": "cbu", "ani": "ani", "exp": 1, "iat": int(time.time())
+                    }
+    }
+
+    service = TokenService(private_key=private_key)
+    signed_jwt = service.sign_jwt(jwt)
+
+    assert service.verify_jwt(signed_jwt) == True
+    assert service.decode_jwt(signed_jwt) == jwt
+
 
 def test_create_did_with_network_did():
     expected_did = 'did:ala:789:012:345'
@@ -41,6 +55,7 @@ def test_create_alastria_token_only_required_args():
 
     assert jwt == expected_jwt
 
+
 def test_create_alastria_token_all_args():
     expected_jwt = {
         "header": {
@@ -63,9 +78,11 @@ def test_create_alastria_token_all_args():
 
     service = TokenService(private_key=private_key)
 
-    jwt = service.create_alastria_token('iss', 'gwu', 'cbu', 'ani', 1, "kid", "jwk", 1, "jti")
+    jwt = service.create_alastria_token(
+        'iss', 'gwu', 'cbu', 'ani', 1, "kid", "jwk", 1, "jti")
 
     assert jwt == expected_jwt
+
 
 def test_create_alastria_session_only_required_args():
     expected_jwt = {
@@ -84,9 +101,11 @@ def test_create_alastria_session_only_required_args():
 
     service = TokenService(private_key=private_key)
 
-    jwt = service.create_alastria_session(['CustomContext'], ['CustomType'], 'iss', '0x01234')
+    jwt = service.create_alastria_session(
+        ['CustomContext'], ['CustomType'], 'iss', '0x01234')
 
     assert jwt == expected_jwt
+
 
 def test_create_alastria_session_all_args():
     expected_jwt = {
@@ -110,9 +129,11 @@ def test_create_alastria_session_all_args():
 
     service = TokenService(private_key=private_key)
 
-    jwt = service.create_alastria_session(['CustomContext'], ['CustomType'], 'iss', '0x01234', 'jti', 1, 1, 'kid', 'jwk')
+    jwt = service.create_alastria_session(
+        ['CustomContext'], ['CustomType'], 'iss', '0x01234', 'jti', 1, 1, 'kid', 'jwk')
 
     assert jwt == expected_jwt
+
 
 def test_create_alastria_identity_creation_only_required_args():
     expected_jwt = {
@@ -130,12 +151,13 @@ def test_create_alastria_identity_creation_only_required_args():
         }
     }
 
-
     service = TokenService(private_key=private_key)
 
-    jwt = service.create_alastria_identity_creation(['CustomContext'], ['CustomType'], '0x4321', '0x01234', '0x0011')
+    jwt = service.create_alastria_identity_creation(
+        ['CustomContext'], ['CustomType'], '0x4321', '0x01234', '0x0011')
 
     assert jwt == expected_jwt
+
 
 def test_create_alastria_identity_creation_all_args():
     expected_jwt = {
@@ -160,6 +182,7 @@ def test_create_alastria_identity_creation_all_args():
 
     service = TokenService(private_key=private_key)
 
-    jwt = service.create_alastria_identity_creation(['CustomContext'], ['CustomType'], '0x4321', '0x01234', '0x0011', 'jti', 1, 1, 'kid', 'jwk')
+    jwt = service.create_alastria_identity_creation(['CustomContext'], [
+                                                    'CustomType'], '0x4321', '0x01234', '0x0011', 'jti', 1, 1, 'kid', 'jwk')
 
     assert jwt == expected_jwt

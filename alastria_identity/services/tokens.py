@@ -1,7 +1,10 @@
 import base64
 import time
+import json
 
-# from jsontokens import TokenSigner, TokenVerifier, decode_token
+from jwcrypto import jwk, jwt, jws
+from ecdsa.keys import SigningKey
+from ecdsa.curves import SECP256k1
 
 from alastria_identity.types import NetworkDid
 
@@ -13,25 +16,34 @@ class TokenService:
     }
 
     def __init__(self, private_key: str):
-        # self.token_signer = TokenSigner()
-        # self.token_verifier = TokenVerifier()
-        self.private_key = private_key
+        pem = SigningKey.from_string(bytes.fromhex(private_key), curve=SECP256k1).to_pem()
+        self.signing_key = jwk.JWK.from_pem(pem)
         self.algorithm = 'ES256K'
 
     def create_did(self, network_did: NetworkDid):
         return f'did:ala:{network_did.network}:{network_did.network_id}:{network_did.proxy_address}'
 
-    def sign_jwt(self, jwt: dict):
-        # return self.sign(jwt, self.private_key)
-        pass
+    def sign_jwt(self, jwt_data: dict):
+        token = jwt.JWT(header=jwt_data.get('header'), claims=jwt_data.get('payload'), algs=[self.algorithm])
+        token.make_signed_token(self.signing_key)
+        return token.serialize()
 
-    def verify_jwt(self, jwt: str):
-        # return self.verify_jwt(jwt, self.private_key)
-        pass
+    def verify_jwt(self, jwt_data: str):
+        try:
+            jws_token = jws.JWS(jwt_data)
+            jws_token.allowed_algs.extend([self.algorithm])
+            jws_token.add_signature(self.signing_key, alg=self.algorithm)
+            jws_token.verify(self.signing_key, alg=self.algorithm)
+            return True
+        except jws.InvalidJWSSignature:
+            return False
 
-    def decode_jwt(self, jwt: str):
-        # return decode_token(jwt)
-        pass
+    def decode_jwt(self, jwt_data: str):
+        jws_token = jws.JWS(jwt_data)
+        jws_token.add_signature(self.signing_key, alg=self.algorithm)
+        jws_token.deserialize(jwt_data)
+        jws_token.verify(self.signing_key)
+        return {"header": jws_token.jose_header, "payload": json.loads(jws_token.payload)}
 
     def create_alastria_token(self,
                               iss: str,
