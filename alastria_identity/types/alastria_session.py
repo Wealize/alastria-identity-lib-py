@@ -50,19 +50,20 @@ class AlastriaSession:
             'iat': int(time.time())
         }
 
-        if self.kid:
-            header.update(kid=self.kid)
-
-        if self.jwk:
-            header.update(jwk=self.jwk)
-
-        if self.jti:
-            payload.update(jti=self.jti)
-
-        if self.exp:
-            payload.update(exp=self.exp)
-
-        if self.nbf:
-            payload.update(nbf=self.nbf)
+        header.update(**self.get_optional_header_params())
+        payload.update(**self.get_optional_payload_params())
 
         return {'header': header, 'payload': payload}
+
+    def get_optional_header_params(self) -> dict:
+        params = {}
+        params.update(kid=self.kid) if self.kid else None
+        params.update(jwk=self.jwk) if self.jwk else None
+        return params
+
+    def get_optional_payload_params(self) -> dict:
+        params = {}
+        params.update(jti=self.jti) if self.jti else None
+        params.update(exp=self.exp) if self.exp else None
+        params.update(nbf=self.nbf) if self.nbf else None
+        return params
