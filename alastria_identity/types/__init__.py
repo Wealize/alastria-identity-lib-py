@@ -4,6 +4,10 @@ from dataclasses import dataclass, field
 
 from web3 import Web3
 
+from .alastria_session import AlastriaSession
+from .alastria_token import AlastriaToken
+from .alastria_identity_creation import AlastriaIdentityCreation
+
 
 @dataclass
 class PublicKeyStatus:
@@ -61,78 +65,6 @@ class NetworkDid:
             network_id=network_items[3],
             proxy_address=network_items[4]
         )
-
-
-# TODO Move to TOKENS.py in a types folder
-@dataclass
-class AlastriaSession:
-    context: List[str]
-    iss: str
-    kid: str
-    type: List[str]
-    token: str
-    exp: int
-    pku: str = ''
-    nbf: str = ''
-    jti: str = ''
-    REQUIRED_CONTEXT: List[str] = field(
-        default_factory=lambda: [
-            'https://alastria.github.io/identity/artifacts/v1'
-        ])
-    REQUIRED_TYPES: List[str] = field(
-        default_factory=lambda: ['AlastriaSession'])
-
-    def get_jwt_payload(self):
-        return {
-            'headers': {
-                'alg': 'ES256K',
-                'typ': 'JWT',
-                'pku': self.pku,
-                'kid': self.kid
-            },
-            'payload': {
-                '@context': self.REQUIRED_CONTEXT + self.context,
-                'type': self.REQUIRED_TYPES + self.type,
-                'iss': self.iss,
-                'iat': int(time.time()),
-                'exp': self.exp,
-                'nbf': self.nbf,
-                'alastriaToken': self.token,
-                'jti': self.jti
-            }
-        }
-
-
-@dataclass
-class AlastriaToken:
-    iss: str
-    gwu: str
-    cbu: str
-    ani: str
-    exp: int
-    kid: str
-    jwk: str = ''
-    nbf: int = 0
-    jti: str = ''
-
-    def get_jwt_payload(self):
-        return {
-            'header': {
-                'alg': 'ES256K',
-                'typ': 'JWT',
-                'kid': self.kid,
-                'jwk': self.jwk
-            },
-            'payload': {
-                'iss': self.iss,
-                'gwu': self.gwu,
-                'cbu': self.cbu,
-                'iat': int(time.time()),
-                'ani': self.ani,
-                'nbf': self.nbf,
-                'exp': self.jti
-            }
-        }
 
 
 @dataclass

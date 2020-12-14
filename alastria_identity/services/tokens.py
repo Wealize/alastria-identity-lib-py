@@ -1,21 +1,52 @@
-import jwt
+import base64
+import time
+import json
 
-from alastria_identity.types import NetworkDid
+from jwcrypto import jwk, jwt, jws
+from ecdsa.keys import SigningKey
+from ecdsa.curves import SECP256k1
+
+from alastria_identity.types import (NetworkDid, JwtToken)
 
 
 class TokenService:
-    def __init__(self, secret: str, algorithm: str):
-        self.secret = secret
-        self.algorithms = [algorithm]
+    BASE_HEADER = {
+        'alg': 'ES256K',
+        'typ': 'JWT'
+    }
+
+    def __init__(self, private_key: str):
+        pem = SigningKey.from_string(bytes.fromhex(
+            private_key), curve=SECP256k1).to_pem()
+        self.signing_key = jwk.JWK.from_pem(pem)
+        self.algorithm = 'ES256K'
 
     def create_did(self, network_did: NetworkDid):
         return f'did:ala:{network_did.network}:{network_did.network_id}:{network_did.proxy_address}'
 
-    def decode_jwt(self, jwt_token: str) -> dict:
-        if not jwt_token:
-            return {}
+    def sign_jwt(self, jwt_data: JwtToken):
+        token = jwt.JWT(header=jwt_data.header,
+                        claims=jwt_data.payload, algs=[self.algorithm])
+        token.make_signed_token(self.signing_key)
+        return token.serialize()
 
-        return jwt.decode(
-            jwt_token,
-            self.secret,
-            algorithms=self.algorithms)
+    def verify_jwt(self, jwt_data: str):
+        try:
+            jws_token = jws.JWS(jwt_data)
+            jws_token.allowed_algs.extend([self.algorithm])
+            jws_token.add_signature(self.signing_key, alg=self.algorithm)
+            jws_token.verify(self.signing_key, alg=self.algorithm)
+            return True
+        except jws.InvalidJWSSignature:
+            return False
+
+    def decode_jwt(self, jwt_data: str):
+        jws_token = jws.JWS(jwt_data)
+        jws_token.allowed_algs.extend([self.algorithm])
+        jws_token.add_signature(self.signing_key, alg=self.algorithm)
+        jws_token.deserialize(jwt_data)
+        jws_token.verify(self.signing_key)
+        return {"header": jws_token.jose_header, "payload": json.loads(jws_token.payload)}
+
+    def psm_hash():
+        pass
