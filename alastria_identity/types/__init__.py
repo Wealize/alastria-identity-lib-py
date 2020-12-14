@@ -7,7 +7,8 @@ from web3 import Web3
 from .alastria_session import AlastriaSession
 from .alastria_token import AlastriaToken
 from .alastria_identity_creation import AlastriaIdentityCreation
-
+from .transaction import Transaction
+from .entity import Entity
 
 @dataclass
 class PublicKeyStatus:
@@ -24,7 +25,7 @@ class JwtToken:
 
 
 @dataclass
-class BasicTransaction:
+class Transaction:
     to: str = '0x0000000000000000000000000000000000000000'
     data: str = '0x0'
     gasPrice: int = 0
@@ -37,7 +38,7 @@ class IdentityConfig:
     credential_registry: str
     presentation_registry: str
     publickey_registry: str
-    basic_transaction: BasicTransaction
+    basic_transaction: Transaction
     contracts_abi: dict
     zeroValue: str = '00000000000000000000000000000000000000000000000000000000000000000000'
 

@@ -4,9 +4,18 @@ Python version of the Alastria Identity lib
 
 # Testing
 
+Execute tests
 ```bash
-docker-compose run --rm identity poetry run python -m pytest alastria_identity -v .
+docker-compose run --rm identity poetry run python -m coverage run -m pytest alastria_identity -v .
 ```
+
+Create and check test coverage
+```bash
+docker-compose run --rm identity poetry run coverage html
+npx http-server (or any local http server)
+```
+
+Open `http://localhost:8080` in your browser
 
 # TODO
 
