@@ -221,7 +221,7 @@ class IdentityManagerService:
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
 
-    def delegated(self, delegated_data):
+    def delegated(self, delegated_data) -> str:
         return ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name='delegateCall',
             args=[IDENTITY_MANAGER_ADDRESS, 0, delegated_data]
