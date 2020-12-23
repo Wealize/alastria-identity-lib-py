@@ -1,5 +1,6 @@
 from mock import *
 import time
+from hexbytes import HexBytes
 
 from alastria_identity.services import TokenService
 from alastria_identity.types import (
@@ -192,3 +193,26 @@ def test_create_alastria_identity_creation_all_args():
                                    'CustomType'], '0x4321', '0x01234', '0x0011', 'jti', 1, 1, 'kid', 'jwk').build_jwt()
 
     assert jwt == expected_jwt
+
+
+def test_psmhash():
+    foo_signed_jwt = '''
+                    eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksiLCJraWQiOiJkaWQ6YWxhOnF1b3I6cmVkVDo4ZjQ0MDA0O
+                    WNiYmU1YzZiYzllZmY0NjM2OWY5MDkxZjFkODEzMzNjI2tleXMtMSJ9.
+                    eyJqdGkiOiJmaGJ0aDlocnVkbCIsImlzcyI6ImRpZDphbGE6cXVvcjpyZWRUOjhmNDQwMDQ5Y2JiZTVjNmJjOW
+                    VmZjQ2MzY5ZjkwOTFmMWQ4MTMzM2MiLCJzdWIiOiJkaWQ6YWxhOnF1b3I6cmVkVDowYTc3ODAyOTVhYjgwNmY4
+                    Y2RiNjIzY2ZhNDhhNzQ5ZTk1OTE4MTU5IiwiaWF0IjoxNTkxMTczNjkzLCJleHAiOjE1OTEyNjAwOTMxNDMsIm
+                    5iZiI6MTU5MTE3MzY5MzE0MywidmMiOnsiQGNvbnRleHQiOlsiaHR0cHM6Ly93d3cudzMub3JnLzIwMTgvY3Jl
+                    ZGVudGlhbHMvdjEiLCJKV1QiXSwidHlwZSI6WyJWZXJpZmlhYmxlQ3JlZGVudGlhbCIsIkFsYXN0cmlhRXhhbX
+                    BsZUNyZWRlbnRpYWwiXSwiY3JlZGVudGlhbFN1YmplY3QiOnsibGV2ZWxPZkFzc3VyYW5jZSI6MywiZnVsbG5h
+                    bWUiOiJEYW5pZWwgZGUgbGEgU290YSJ9fX0.
+                    DZsssNSg0_NzrjSiCNrkVss9-bnUZxFrbH6oN9NluCJwg0MqwAvyvwtKww_f_lF1sMVXt6UZyl_gJEkCSaspWw',
+                    'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NksiLCJraWQiOiJkaWQ6YWxhOnF1b3I6cmVkVDo4ZjQ0MDA0OWNiY
+                    mU1YzZiYzllZmY0NjM2OWY5MDkxZjFkODEzMzNjI2tleXMtMSJ9.
+                    '''
+    foo_did = 'did:ala:quor:redT:8f440049cbbe5c6bc9eff46369f9091f1d81333'
+    expected_psmash = HexBytes('0xdb61eb3ad9020e8fe0509618a8579fe350cb16be20fbfd43a098e152fa9b3a31')
+
+    psmhash = TokenService.psm_hash(foo_signed_jwt, foo_did)
+
+    assert psmhash == expected_psmash

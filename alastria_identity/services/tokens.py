@@ -1,6 +1,8 @@
 import base64
 import time
 import json
+from web3 import Web3
+from hexbytes import HexBytes
 
 from jwcrypto import jwk, jwt, jws
 from ecdsa.keys import SigningKey
@@ -48,5 +50,6 @@ class TokenService:
         jws_token.verify(self.signing_key)
         return {"header": jws_token.jose_header, "payload": json.loads(jws_token.payload)}
 
-    def psm_hash():
-        pass
+    @staticmethod
+    def psm_hash(signed_jwt: str, did: str) -> HexBytes:
+        return Web3.keccak(text=f'{signed_jwt}{did}')
