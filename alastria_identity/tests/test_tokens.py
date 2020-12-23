@@ -33,7 +33,7 @@ def test_jwt():
 
     service = TokenService(private_key=private_key)
     signed_jwt = service.sign_jwt(jwt)
-    decoded_jwt = service.decode_jwt(signed_jwt)
+    decoded_jwt = TokenService.decode_jwt(signed_jwt)
 
     assert service.verify_jwt(signed_jwt)
     assert decoded_jwt.get('header') == jwt.header

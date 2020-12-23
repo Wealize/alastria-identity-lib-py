@@ -42,7 +42,8 @@ class TokenService:
         except jws.InvalidJWSSignature:
             return False
 
-    def decode_jwt(self, jwt_data: str):
+    @staticmethod
+    def decode_jwt(jwt_data: str):
         jws_token = jws.JWS(jwt_data)
         jws_token.deserialize(jwt_data)
         return {
