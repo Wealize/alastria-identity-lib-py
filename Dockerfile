@@ -7,6 +7,6 @@ RUN mkdir /code
 
 WORKDIR /code
 
-RUN pip install 'poetry==1.0.5'
-COPY pyproject.toml poetry.lock ./
-RUN poetry install
+RUN pip install poetry
+COPY pyproject.toml poetry.lock /code/
+RUN poetry install --no-root
