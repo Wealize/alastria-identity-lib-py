@@ -44,11 +44,11 @@ class TokenService:
 
     def decode_jwt(self, jwt_data: str):
         jws_token = jws.JWS(jwt_data)
-        jws_token.allowed_algs.extend([self.algorithm])
-        jws_token.add_signature(self.signing_key, alg=self.algorithm)
         jws_token.deserialize(jwt_data)
-        jws_token.verify(self.signing_key)
-        return {"header": jws_token.jose_header, "payload": json.loads(jws_token.payload)}
+        return {
+            "header": jws_token.jose_header,
+            "payload": json.loads(jws_token.objects.get('payload'))
+        }
 
     @staticmethod
     def psm_hash(signed_jwt: str, did: str) -> HexBytes:
