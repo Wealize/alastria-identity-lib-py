@@ -8,7 +8,8 @@ from alastria_identity.types import (
     JwtToken,
     AlastriaSession,
     AlastriaToken,
-    AlastriaIdentityCreation)
+    AlastriaIdentityCreation,
+    Credential)
 
 mock_time = Mock()
 mock_time.return_value = time.time()
@@ -211,8 +212,104 @@ def test_psmhash():
                     mU1YzZiYzllZmY0NjM2OWY5MDkxZjFkODEzMzNjI2tleXMtMSJ9.
                     '''
     foo_did = 'did:ala:quor:redT:8f440049cbbe5c6bc9eff46369f9091f1d81333'
-    expected_psmash = HexBytes('0xdb61eb3ad9020e8fe0509618a8579fe350cb16be20fbfd43a098e152fa9b3a31')
+    expected_psmash = HexBytes(
+        '0xdb61eb3ad9020e8fe0509618a8579fe350cb16be20fbfd43a098e152fa9b3a31')
 
     psmhash = TokenService.psm_hash(foo_signed_jwt, foo_did)
 
     assert psmhash == expected_psmash
+
+
+def test_create_credential_only_required_args():
+    expected_jwt = {
+        "header": {
+            "alg": "ES256K",
+            "typ": "JWT",
+        },
+        "payload": {
+            'iss': 'iss',
+            "iat": int(time.time()),
+            "vc": {
+                "@context": ['https://www.w3.org/2018/credentials/v1', 'https://alastria.github.io/identity/credentials/v1', 'CustomContext'],
+                "type": ['VerifiableCredential', 'AlastriaVerifiableCredential'],
+                "credentialSubject": {
+                    "levelOfAssurance": 3,
+                    "covid_test": {
+                        "name": "Perico Perez",
+                        "mail": "perico.perez@example.com",
+                        "test_result": "negative"
+                    }
+                }
+            }
+        }
+    }
+
+    service = TokenService(private_key=private_key)
+
+    jwt = Credential(
+        'iss',
+        ['CustomContext'],
+        {
+            "levelOfAssurance": 3,
+            "covid_test": {
+                "name": "Perico Perez",
+                "mail": "perico.perez@example.com",
+                "test_result": "negative"
+            }
+        }).build_jwt()
+
+    assert jwt == expected_jwt
+
+
+def test_create_credential_all_args():
+    expected_jwt = {
+        "header": {
+            "alg": "ES256K",
+            "typ": "JWT",
+            "kid": "kid",
+            "jwk": "jwk"
+        },
+        "payload": {
+            "iss": "iss",
+            "iat": int(time.time()),
+            "jti": "jti",
+            "sub": "sub",
+            "nbf": 100,
+            "exp": 10,
+            "vc": {
+                "@context": ['https://www.w3.org/2018/credentials/v1', 'https://alastria.github.io/identity/credentials/v1', 'CustomContext'],
+                "type": ['VerifiableCredential', 'AlastriaVerifiableCredential', 'CustomType'],
+                "credentialSubject": {
+                    "levelOfAssurance": 3,
+                    "covid_test": {
+                        "name": "Perico Perez",
+                        "mail": "perico.perez@example.com",
+                        "test_result": "negative"
+                    }
+                }
+            }
+        }
+    }
+
+    service = TokenService(private_key=private_key)
+
+    jwt = Credential(
+        'iss',
+        ['CustomContext'],
+        {
+            "levelOfAssurance": 3,
+            "covid_test": {
+                "name": "Perico Perez",
+                "mail": "perico.perez@example.com",
+                "test_result": "negative"
+            }
+        },
+        'kid',
+        'sub',
+        10,
+        100,
+        'jti',
+        'jwk',
+        ['CustomType']).build_jwt()
+
+    assert jwt == expected_jwt
