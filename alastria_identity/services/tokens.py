@@ -5,8 +5,9 @@ from web3 import Web3
 from hexbytes import HexBytes
 
 from jwcrypto import jwk, jwt, jws
-from ecdsa.keys import SigningKey
+from ecdsa.keys import SigningKey, VerifyingKey
 from ecdsa.curves import SECP256k1
+from eth_utils import decode_hex
 
 from alastria_identity.types import (NetworkDid, JwtToken)
 
@@ -32,12 +33,15 @@ class TokenService:
         token.make_signed_token(self.signing_key)
         return token.serialize()
 
-    def verify_jwt(self, jwt_data: str):
+    def verify_jwt(self, jwt_data: str, raw_public_key: str):
         try:
+            pem = VerifyingKey.from_string(decode_hex(
+                raw_public_key), curve=SECP256k1).to_pem()
+            verifying_key = jwk.JWK.from_pem(pem)
             jws_token = jws.JWS(jwt_data)
+            jws_token.deserialize(jwt_data)
             jws_token.allowed_algs.extend([self.algorithm])
-            jws_token.add_signature(self.signing_key, alg=self.algorithm)
-            jws_token.verify(self.signing_key, alg=self.algorithm)
+            jws_token.verify(verifying_key, alg=self.algorithm)
             return True
         except jws.InvalidJWSSignature:
             return False
