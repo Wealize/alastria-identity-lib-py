@@ -9,6 +9,7 @@ from .alastria_token import AlastriaToken
 from .alastria_identity_creation import AlastriaIdentityCreation
 from .transaction import Transaction
 from .entity import Entity
+from .credential import Credential
 
 @dataclass
 class PublicKeyStatus:
