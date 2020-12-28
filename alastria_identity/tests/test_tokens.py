@@ -2,6 +2,9 @@ from mock import *
 import time
 from hexbytes import HexBytes
 
+from eth_keys import keys
+from eth_utils import decode_hex
+
 from alastria_identity.services import TokenService
 from alastria_identity.types import (
     NetworkDid,
@@ -14,10 +17,15 @@ from alastria_identity.types import (
 mock_time = Mock()
 mock_time.return_value = time.time()
 
-private_key = '1da6847600b0ee25e9ad9a52abbd786dd2502fa4005dd5af9310b7cc7a3b25db'
+first_private_key = '1da6847600b0ee25e9ad9a52abbd786dd2502fa4005dd5af9310b7cc7a3b25db'
+first_public_key = keys.PrivateKey(
+    decode_hex(first_private_key)).public_key.to_hex()
+second_private_key = '5f25043160494cc82f7054ea935ebb7d9ac67bbe336ddf11b3b61b8d4731009e'
+second_public_key = keys.PrivateKey(
+    decode_hex(second_private_key)).public_key.to_hex()
 
 
-def test_jwt():
+def test_jwt_verification_with_correct_public_key():
     jwt = JwtToken(
         header={
             "alg": "ES256K",
@@ -32,11 +40,35 @@ def test_jwt():
             "iat": int(time.time())
         })
 
-    service = TokenService(private_key=private_key)
+    service = TokenService(private_key=first_private_key)
     signed_jwt = service.sign_jwt(jwt)
     decoded_jwt = TokenService.decode_jwt(signed_jwt)
 
-    assert service.verify_jwt(signed_jwt)
+    assert service.verify_jwt(signed_jwt, first_public_key)
+    assert decoded_jwt.get('header') == jwt.header
+    assert decoded_jwt.get('payload') == jwt.payload
+
+
+def test_jwt_verification_with_incorrect_public_key():
+    jwt = JwtToken(
+        header={
+            "alg": "ES256K",
+            "typ": "JWT"
+        },
+        payload={
+            "iss": "iss",
+            "gwu": "gwu",
+            "cbu": "cbu",
+            "ani": "ani",
+            "exp": 1,
+            "iat": int(time.time())
+        })
+
+    service = TokenService(private_key=first_private_key)
+    signed_jwt = service.sign_jwt(jwt)
+    decoded_jwt = TokenService.decode_jwt(signed_jwt)
+
+    assert not service.verify_jwt(signed_jwt, second_public_key)
     assert decoded_jwt.get('header') == jwt.header
     assert decoded_jwt.get('payload') == jwt.payload
 
@@ -44,7 +76,7 @@ def test_jwt():
 def test_create_did_with_network_did():
     expected_did = 'did:ala:789:012:345'
     network_did = NetworkDid.from_did('123:456:789:012:345')
-    service = TokenService(private_key=private_key)
+    service = TokenService(private_key=first_private_key)
 
     did = service.create_did(network_did)
 
@@ -188,7 +220,7 @@ def test_create_alastria_identity_creation_all_args():
         }
     }
 
-    service = TokenService(private_key=private_key)
+    service = TokenService(private_key=first_private_key)
 
     jwt = AlastriaIdentityCreation(['CustomContext'], [
                                    'CustomType'], '0x4321', '0x01234', '0x0011', 'jti', 1, 1, 'kid', 'jwk').build_jwt()
