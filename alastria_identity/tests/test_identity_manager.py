@@ -24,7 +24,7 @@ def test_prepare_alastria_id(
     }
     service = IdentityManagerService(web3_mock)
 
-    transaction = service.preapre_alastria_id(sign_addres)
+    transaction = service.prepare_alastria_id(sign_addres)
 
     mock_alastria_identity_entity.assert_called_with(web3_mock)
     mock_alastria_identity_entity(web3_mock).encodeABI.assert_called_with(

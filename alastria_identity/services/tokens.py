@@ -24,7 +24,8 @@ class TokenService:
         self.signing_key = jwk.JWK.from_pem(pem)
         self.algorithm = 'ES256K'
 
-    def create_did(self, network_did: NetworkDid):
+    @staticmethod
+    def create_did(network_did: NetworkDid):
         return f'did:ala:{network_did.network}:{network_did.network_id}:{network_did.proxy_address}'
 
     def sign_jwt(self, jwt_data: JwtToken):

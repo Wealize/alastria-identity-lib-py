@@ -13,7 +13,7 @@ class IdentityManagerService:
     def __init__(self, endpoint: Web3):
         self.endpoint = endpoint
 
-    def preapre_alastria_id(self, sign_address: str) -> Transaction:
+    def prepare_alastria_id(self, sign_address: str) -> Transaction:
         data = self.delegated(ContractsService.AlastriaIdentityEntity(self.endpoint).encodeABI(
             fn_name="prepareAlastriaID",
             args=[sign_address]
@@ -215,6 +215,16 @@ class IdentityManagerService:
         data = ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name='entitiesList',
             args=[])
+        return Transaction(
+            to=IDENTITY_MANAGER_ADDRESS,
+            data=data,
+            gasPrice=self.DEFAULT_GAS_LIMIT
+        )
+
+    def get_identity_key(self, address: str) -> Transaction:
+        data = ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
+            fn_name='identityKeys',
+            args=[address[2:]])
         return Transaction(
             to=IDENTITY_MANAGER_ADDRESS,
             data=data,

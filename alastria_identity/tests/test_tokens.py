@@ -276,7 +276,7 @@ def test_create_credential_only_required_args():
         }
     }
 
-    service = TokenService(private_key=private_key)
+    service = TokenService(private_key=first_private_key)
 
     jwt = Credential(
         'iss',
@@ -323,7 +323,7 @@ def test_create_credential_all_args():
         }
     }
 
-    service = TokenService(private_key=private_key)
+    service = TokenService(private_key=first_private_key)
 
     jwt = Credential(
         'iss',
