@@ -1,6 +1,7 @@
 from mock import *
 from dataclasses import asdict
 from unittest.mock import patch
+from web3 import Web3
 
 from alastria_identity.services import IdentityManagerService, IDENTITY_MANAGER_ADDRESS
 from alastria_identity.types import Entity
@@ -17,7 +18,7 @@ def test_prepare_alastria_id(
         web3_mock).encodeABI.return_value = 'prepareAlastriaIDReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -44,7 +45,7 @@ def test_create_alastria_identity(
     mock_identity_manager(
         web3_mock).encodeABI.return_value = 'createAlastriaIdentityValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'createAlastriaIdentityValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -75,7 +76,7 @@ def test_add_identity_issuer(
         web3_mock).encodeABI.return_value = 'addIdentityIssuerValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -104,7 +105,7 @@ def test_update_identity_issuer_eidas_level(
         web3_mock).encodeABI.return_value = 'updateIdentityIssuerEidasLevelValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -132,7 +133,7 @@ def test_delete_identity_issuer(
         web3_mock).encodeABI.return_value = 'deleteIdentityIssuerEidasLevelValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -157,7 +158,7 @@ def test_get_eidas_level(
     mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'getEidasLevelValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getEidasLevelValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -184,7 +185,7 @@ def test_add_identity_service_provider(
         web3_mock).encodeABI.return_value = 'addIdentityServiceProviderValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -212,7 +213,7 @@ def test_delete_identity_service_provider(
         web3_mock).encodeABI.return_value = 'deleteIdentityServiceProviderValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -238,7 +239,7 @@ def test_is_identity_service_provider(
     mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'isIdentityServiceProviderValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'isIdentityServiceProviderValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -262,7 +263,7 @@ def test_is_identity_issuer(
     mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'isIdentityIssuerValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'isIdentityIssuerValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -297,7 +298,7 @@ def test_add_entity(
         web3_mock).encodeABI.return_value = 'addEntityValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -342,7 +343,7 @@ def test_set_entity_name(
         web3_mock).encodeABI.return_value = 'setEntityNameValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -379,7 +380,7 @@ def test_set_entity_cif(
         web3_mock).encodeABI.return_value = 'setEntityCifValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -416,7 +417,7 @@ def test_set_entity_url_logo(
         web3_mock).encodeABI.return_value = 'setEntityUrlLogoValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -453,7 +454,7 @@ def test_set_entity_url_create_aid(
         web3_mock).encodeABI.return_value = 'setEntityUrlCreateAIDValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -490,7 +491,7 @@ def test_set_entity_url_aoa(
         web3_mock).encodeABI.return_value = 'setEntityUrlAoaAIDValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -524,7 +525,7 @@ def test_get_entity(
     mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'getEntityValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getEntityValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -547,7 +548,7 @@ def test_get_entities_list(
     mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'getEntitiesListValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getEntitiesListValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -570,12 +571,6 @@ def test_delegated_call(
     data = 'exampleData'
     mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'delegatedValue'
-    expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
-        'data': 'delegatedValue',
-        'gasPrice': 600000,
-        'nonce': '0x0'
-    }
     service = IdentityManagerService(web3_mock)
 
     transaction = service.delegated(data)

@@ -1,6 +1,7 @@
 from mock import *
 from dataclasses import asdict
 from unittest.mock import patch
+from web3 import Web3
 
 from alastria_identity.services import CredentialRegistryService, IDENTITY_MANAGER_ADDRESS
 from alastria_identity.types import Entity
@@ -18,7 +19,7 @@ def test_add_subject_credential(
         web3_mock).encodeABI.return_value = 'addSubjectCredentialReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -45,7 +46,7 @@ def test_delete_subject_credential(
         web3_mock).encodeABI.return_value = 'deleteSubjectCredentialReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -71,7 +72,7 @@ def test_get_subject_credential_status(
     mock_alastria_credential_registry(
         web3_mock).encodeABI.return_value = 'getSubjectCredentialStatusReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getSubjectCredentialStatusReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -96,7 +97,7 @@ def test_get_subject_credential_list(
     mock_alastria_credential_registry(
         web3_mock).encodeABI.return_value = 'getSubjectCredentialListReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getSubjectCredentialListReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -122,7 +123,7 @@ def test_add_issuer_credential(
         web3_mock).encodeABI.return_value = 'addIssuerCredentialReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -148,7 +149,7 @@ def test_get_issuer_credential_status(
     mock_alastria_credential_registry(
         web3_mock).encodeABI.return_value = 'getIssuerCredentialStatusReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getIssuerCredentialStatusReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -176,7 +177,7 @@ def test_update_credential_status(
         web3_mock).encodeABI.return_value = 'updateCredentialStatusReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -202,7 +203,7 @@ def test_get_credential_status(
     mock_alastria_credential_registry(
         web3_mock).encodeABI.return_value = 'getCredentialStatusReturnValue'
     expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getCredentialStatusReturnValue',
         'gasPrice': 600000,
         'nonce': '0x0'
@@ -224,12 +225,6 @@ def test_delegated_call(
     data = 'exampleData'
     mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'delegatedValue'
-    expected_transaction = {
-        'to': IDENTITY_MANAGER_ADDRESS,
-        'data': 'delegatedValue',
-        'gasPrice': 600000,
-        'nonce': '0x0'
-    }
     service = CredentialRegistryService(web3_mock)
 
     transaction = service.delegated(data)

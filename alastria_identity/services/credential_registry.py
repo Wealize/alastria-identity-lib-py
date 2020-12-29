@@ -70,7 +70,7 @@ class CredentialRegistryService:
         data = self.delegated(encoded_abi) if delegated else encoded_abi
 
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT)
 

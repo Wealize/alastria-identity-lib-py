@@ -20,7 +20,7 @@ class IdentityManagerService:
         ))
 
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT)
 
@@ -33,7 +33,7 @@ class IdentityManagerService:
             args=[public_key_data])
 
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT)
 
@@ -43,7 +43,7 @@ class IdentityManagerService:
             fn_name='addIdentityIssuer',
             args=[issuer_address, level]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -54,7 +54,7 @@ class IdentityManagerService:
             fn_name='updateIdentityIssuerEidasLevel',
             args=[issuer_address, level]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -65,7 +65,7 @@ class IdentityManagerService:
             fn_name='deleteIdentityIssuer',
             args=[issuer_address]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -76,7 +76,7 @@ class IdentityManagerService:
             fn_name='getEidasLevel',
             args=[issuer_address])
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -88,7 +88,7 @@ class IdentityManagerService:
             fn_name='addIdentityServiceProvider',
             args=[provider_address]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -100,7 +100,7 @@ class IdentityManagerService:
             fn_name='deleteIdentityServiceProvider',
             args=[provider_address]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -112,7 +112,7 @@ class IdentityManagerService:
             fn_name='isIdentityServiceProvider',
             args=[provider_address])
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -123,7 +123,7 @@ class IdentityManagerService:
             fn_name='isIdentityIssuer',
             args=[issuer_address])
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -140,7 +140,7 @@ class IdentityManagerService:
                   entity.url_aoa,
                   entity.status]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -151,7 +151,7 @@ class IdentityManagerService:
             fn_name='setNameEntity',
             args=[entity.name]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -162,7 +162,7 @@ class IdentityManagerService:
             fn_name='setCifEntity',
             args=[entity.cif]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -173,7 +173,7 @@ class IdentityManagerService:
             fn_name='setUrlLogo',
             args=[entity.url_logo]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -184,7 +184,7 @@ class IdentityManagerService:
             fn_name='setUrlCreateAID',
             args=[entity.url_create_aid]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -195,7 +195,7 @@ class IdentityManagerService:
             fn_name='setUrlAOA',
             args=[entity.url_aoa]))
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -206,7 +206,7 @@ class IdentityManagerService:
             fn_name='getEntity',
             args=[entity_address])
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -216,7 +216,7 @@ class IdentityManagerService:
             fn_name='entitiesList',
             args=[])
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
@@ -226,7 +226,7 @@ class IdentityManagerService:
             fn_name='identityKeys',
             args=[address[2:]])
         return Transaction(
-            to=IDENTITY_MANAGER_ADDRESS,
+            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data,
             gasPrice=self.DEFAULT_GAS_LIMIT
         )
