@@ -77,5 +77,5 @@ class CredentialRegistryService:
     def delegated(self, delegated_data) -> str:
         return ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name='delegateCall',
-            args=[IDENTITY_MANAGER_ADDRESS, 0, delegated_data]
+            args=[Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS), 0, delegated_data]
         )

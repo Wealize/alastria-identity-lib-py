@@ -232,5 +232,5 @@ def test_delegated_call(
     mock_alastria_identity_manager.assert_called_with(web3_mock)
     mock_alastria_identity_manager(web3_mock).encodeABI.assert_called_with(
         fn_name='delegateCall',
-        args=[IDENTITY_MANAGER_ADDRESS, 0, data])
+        args=[Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS), 0, data])
     assert transaction == 'delegatedValue'
