@@ -11,6 +11,8 @@ from .transaction import Transaction
 from .entity import Entity
 from .credential import Credential
 
+DEFAULT_GAS_LIMIT = 600000
+
 @dataclass
 class PublicKeyStatus:
     exists: bool
@@ -31,6 +33,7 @@ class Transaction:
     data: str = '0x0'
     gasPrice: int = 0
     nonce: str = '0x0'
+    gas: int = DEFAULT_GAS_LIMIT
 
 
 @dataclass

@@ -8,8 +8,6 @@ from alastria_identity.services import IdentityConfigBuilder, ContractsService, 
 
 
 class IdentityManagerService:
-    DEFAULT_GAS_LIMIT = 600000
-
     def __init__(self, endpoint: Web3):
         self.endpoint = endpoint
 
@@ -21,8 +19,7 @@ class IdentityManagerService:
 
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT)
+            data=data)
 
     def create_alastria_identity(self, public_key: str) -> Transaction:
         public_key_data = ContractsService.AlastriaPublicKeyRegistry(self.endpoint).encodeABI(
@@ -34,8 +31,7 @@ class IdentityManagerService:
 
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT)
+            data=data)
 
     def add_idendity_issuer(self, did_issuer: str, level: int) -> Transaction:
         issuer_address = NetworkDid.from_did(did_issuer).proxy_address
@@ -44,8 +40,7 @@ class IdentityManagerService:
             args=[issuer_address, level]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def update_identity_issuer_eidas_level(self, did_issuer: str, level: int) -> Transaction:
@@ -55,8 +50,7 @@ class IdentityManagerService:
             args=[issuer_address, level]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def delete_identity_issuer(self, did_issuer: str) -> Transaction:
@@ -66,8 +60,7 @@ class IdentityManagerService:
             args=[issuer_address]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def get_eidas_level(self, did_issuer: str) -> Transaction:
@@ -77,8 +70,7 @@ class IdentityManagerService:
             args=[issuer_address])
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def add_identity_service_provider(self, did_service_provider: str) -> Transaction:
@@ -89,8 +81,7 @@ class IdentityManagerService:
             args=[provider_address]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def delete_identity_service_provider(self, did_service_provider: str) -> Transaction:
@@ -101,8 +92,7 @@ class IdentityManagerService:
             args=[provider_address]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def is_identity_service_provider(self, did_service_provider: str) -> Transaction:
@@ -113,8 +103,7 @@ class IdentityManagerService:
             args=[provider_address])
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def is_identity_issuer(self, did_issuer: str) -> Transaction:
@@ -124,8 +113,7 @@ class IdentityManagerService:
             args=[issuer_address])
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def add_entity(self, entity: Entity) -> Transaction:
@@ -141,8 +129,7 @@ class IdentityManagerService:
                   entity.status]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def set_entity_name(self, entity: Entity) -> Transaction:
@@ -152,8 +139,7 @@ class IdentityManagerService:
             args=[entity.name]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def set_entity_cif(self, entity: Entity) -> Transaction:
@@ -163,8 +149,7 @@ class IdentityManagerService:
             args=[entity.cif]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def set_entity_url_logo(self, entity: Entity) -> Transaction:
@@ -174,8 +159,7 @@ class IdentityManagerService:
             args=[entity.url_logo]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def set_entity_url_create_aid(self, entity: Entity) -> Transaction:
@@ -185,8 +169,7 @@ class IdentityManagerService:
             args=[entity.url_create_aid]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def set_entity_url_aoa_aid(self, entity: Entity) -> Transaction:
@@ -196,8 +179,7 @@ class IdentityManagerService:
             args=[entity.url_aoa]))
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def get_entity(self, entity: Entity) -> Transaction:
@@ -207,8 +189,7 @@ class IdentityManagerService:
             args=[entity_address])
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def get_entities_list(self) -> Transaction:
@@ -217,8 +198,7 @@ class IdentityManagerService:
             args=[])
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def get_identity_key(self, address: str) -> Transaction:
@@ -227,12 +207,12 @@ class IdentityManagerService:
             args=[address[2:]])
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT
+            data=data
         )
 
     def delegated(self, delegated_data) -> str:
         return ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name='delegateCall',
-            args=[Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS), 0, delegated_data]
+            args=[Web3.toChecksumAddress(
+                IDENTITY_MANAGER_ADDRESS), 0, delegated_data]
         )

@@ -5,8 +5,6 @@ from alastria_identity.services import ContractsService, IDENTITY_MANAGER_ADDRES
 
 
 class CredentialRegistryService:
-    DEFAULT_GAS_LIMIT = 600000
-
     def __init__(self, endpoint: Web3):
         self.endpoint = endpoint
 
@@ -71,11 +69,11 @@ class CredentialRegistryService:
 
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
-            data=data,
-            gasPrice=self.DEFAULT_GAS_LIMIT)
+            data=data)
 
     def delegated(self, delegated_data) -> str:
         return ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name='delegateCall',
-            args=[Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS), 0, delegated_data]
+            args=[Web3.toChecksumAddress(
+                IDENTITY_MANAGER_ADDRESS), 0, delegated_data]
         )

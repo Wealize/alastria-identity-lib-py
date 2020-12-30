@@ -21,7 +21,8 @@ def test_add_subject_credential(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)
@@ -48,7 +49,8 @@ def test_delete_subject_credential(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)
@@ -74,7 +76,8 @@ def test_get_subject_credential_status(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getSubjectCredentialStatusReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)
@@ -99,7 +102,8 @@ def test_get_subject_credential_list(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getSubjectCredentialListReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)
@@ -125,7 +129,8 @@ def test_add_issuer_credential(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)
@@ -151,7 +156,8 @@ def test_get_issuer_credential_status(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getIssuerCredentialStatusReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)
@@ -179,7 +185,8 @@ def test_update_credential_status(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)
@@ -205,7 +212,8 @@ def test_get_credential_status(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getCredentialStatusReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = CredentialRegistryService(web3_mock)

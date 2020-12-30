@@ -20,7 +20,8 @@ def test_prepare_alastria_id(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -47,7 +48,8 @@ def test_create_alastria_identity(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'createAlastriaIdentityValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -78,7 +80,8 @@ def test_add_identity_issuer(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -107,7 +110,8 @@ def test_update_identity_issuer_eidas_level(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -135,7 +139,8 @@ def test_delete_identity_issuer(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -160,7 +165,8 @@ def test_get_eidas_level(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getEidasLevelValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -187,7 +193,8 @@ def test_add_identity_service_provider(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -215,7 +222,8 @@ def test_delete_identity_service_provider(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -241,7 +249,8 @@ def test_is_identity_service_provider(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'isIdentityServiceProviderValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -265,7 +274,8 @@ def test_is_identity_issuer(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'isIdentityIssuerValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -300,7 +310,8 @@ def test_add_entity(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -345,7 +356,8 @@ def test_set_entity_name(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -382,7 +394,8 @@ def test_set_entity_cif(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -419,7 +432,8 @@ def test_set_entity_url_logo(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -456,7 +470,8 @@ def test_set_entity_url_create_aid(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -493,7 +508,8 @@ def test_set_entity_url_aoa(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -527,7 +543,8 @@ def test_get_entity(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getEntityValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
@@ -550,7 +567,8 @@ def test_get_entities_list(
     expected_transaction = {
         'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'getEntitiesListValue',
-        'gasPrice': 600000,
+        'gasPrice': 0,
+        'gas': 600000,
         'nonce': '0x0'
     }
     service = IdentityManagerService(web3_mock)
