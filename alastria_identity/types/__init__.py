@@ -12,6 +12,7 @@ from .entity import Entity
 from .credential import Credential
 
 DEFAULT_GAS_LIMIT = 600000
+DEFAULT_NONCE = '0x0'
 
 @dataclass
 class PublicKeyStatus:
@@ -32,7 +33,7 @@ class Transaction:
     to: str = '0x0000000000000000000000000000000000000000'
     data: str = '0x0'
     gasPrice: int = 0
-    nonce: str = '0x0'
+    nonce: str = DEFAULT_NONCE
     gas: int = DEFAULT_GAS_LIMIT
 
 
