@@ -19,10 +19,17 @@ class TokenService:
     }
 
     def __init__(self, private_key: str):
+        # byes.fromhex expect a hex string without 0x
+        private_key = self.remove_starting_0x(private_key)
         pem = SigningKey.from_string(bytes.fromhex(
             private_key), curve=SECP256k1).to_pem()
         self.signing_key = jwk.JWK.from_pem(pem)
         self.algorithm = 'ES256K'
+
+    def remove_starting_0x(self, hex_data: str):
+        if hex_data.startswith('0x'):
+            return hex_data[2:]
+        return hex_data
 
     @staticmethod
     def create_did(network_did: NetworkDid):
