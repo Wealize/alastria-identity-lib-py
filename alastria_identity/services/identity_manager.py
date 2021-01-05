@@ -12,7 +12,7 @@ class IdentityManagerService:
         self.endpoint = endpoint
 
     def prepare_alastria_id(self, sign_address: str) -> Transaction:
-        data = self.delegated(ContractsService.AlastriaIdentityEntity(self.endpoint).encodeABI(
+        data = self.delegated(ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name="prepareAlastriaID",
             args=[sign_address]
         ))
