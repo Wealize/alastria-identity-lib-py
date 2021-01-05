@@ -204,7 +204,7 @@ class IdentityManagerService:
     def get_identity_key(self, address: str) -> Transaction:
         data = ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name='identityKeys',
-            args=[address[2:]])
+            args=[address])
         return Transaction(
             to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
             data=data
