@@ -8,13 +8,13 @@ from alastria_identity.types import Entity
 
 
 @patch('alastria_identity.services.IdentityManagerService.delegated')
-@patch('alastria_identity.services.identity_manager.ContractsService.AlastriaIdentityEntity')
+@patch('alastria_identity.services.identity_manager.ContractsService.AlastriaIdentityManager')
 def test_prepare_alastria_id(
-        mock_alastria_identity_entity,
+        mock_alastria_identity_manager,
         mock_delegated):
     web3_mock = Mock()
     sign_addres = '0x1234'
-    mock_alastria_identity_entity(
+    mock_alastria_identity_manager(
         web3_mock).encodeABI.return_value = 'prepareAlastriaIDReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
@@ -28,8 +28,8 @@ def test_prepare_alastria_id(
 
     transaction = service.prepare_alastria_id(sign_addres)
 
-    mock_alastria_identity_entity.assert_called_with(web3_mock)
-    mock_alastria_identity_entity(web3_mock).encodeABI.assert_called_with(
+    mock_alastria_identity_manager.assert_called_with(web3_mock)
+    mock_alastria_identity_manager(web3_mock).encodeABI.assert_called_with(
         fn_name='prepareAlastriaID', args=[sign_addres])
     mock_delegated.assert_called_with('prepareAlastriaIDReturnValue')
     assert asdict(transaction) == expected_transaction
