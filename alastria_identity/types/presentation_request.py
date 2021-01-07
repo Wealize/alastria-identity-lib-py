@@ -1,7 +1,7 @@
 
 import time
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List
 
 
@@ -18,8 +18,8 @@ class PresentationRequestData:
 
     required: bool
     field_name: str
-    context: List[str] = []
-    type: List[str] = []
+    context: List[str] = field(default_factory=list)
+    type: List[str] = field(default_factory=list)
     level_of_assurance: int = 0
     
     def build_data(self) -> dict:
@@ -70,8 +70,8 @@ class PresentationRequest:
     jti: str = None
     exp: int = None
     nbf: int = None
-    context: List[str] = []
-    type: List[str] = []
+    context: List[str] = field(default_factory=list)
+    type: List[str] = field(default_factory=list)
     kid: str = None
     jwk: str = None
 
@@ -90,11 +90,11 @@ class PresentationRequest:
 
         header = {
             'alg': 'ES256K',
-            'typ': 'JWT',
+            'typ': 'JWT'
         }
         payload = {
             'iss': self.iss,
-            'iat': time.time(),
+            'iat': int(time.time()),
             'cbu': self.cbu,
             'pr': {
                 '@context': full_context,
