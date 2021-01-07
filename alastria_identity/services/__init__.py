@@ -1,7 +1,8 @@
-from .parsers import ContractParser
 from .config_builder import IdentityConfigBuilder
-from .tokens import TokenService
-from .contracts import ContractsService, IDENTITY_MANAGER_ADDRESS
-from .identity_manager import IdentityManagerService
+from .contracts import IDENTITY_MANAGER_ADDRESS, ContractsService
 from .credential_registry import CredentialRegistryService
 from .identity import UserIdentityService
+from .identity_manager import IdentityManagerService
+from .parsers import ContractParser
+from .presentation_registry import PresentationRegistryService
+from .tokens import TokenService
