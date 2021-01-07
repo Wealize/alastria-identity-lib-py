@@ -471,3 +471,92 @@ def test_create_presentation_request_required_args():
     ).build_jwt()
 
     assert jwt == expected_jwt
+
+
+def test_create_presentation_request_all_args():
+    expected_jwt = {
+        'header': {
+            'alg': 'ES256K',
+            'typ': 'JWT',
+            'kid': 'did:etc',
+            'jwk': '0x123456'
+        },
+        'payload': {
+            'jti': 'alastria',
+            'iss': 'did:alastria:quorum:testnet1:3eabc53a85',
+            'iat': int(time.time()),
+            'exp': 100,
+            'nbf': 200,
+            'cbu': 'https://alastria.github.io/callback',
+            'pr': {
+                '@context': [
+                    'https://www.w3.org/2018/credentials/v1',
+                    'https://alastria.github.io/identity/credentials/v1',
+                    'https://alastria.github.io/identity/covid'
+                ],
+                'type': [
+                    'VerifiablePresentationRequest',
+                    'AlastriaVerifiablePresentationRequest',
+                    'CustomType'
+                ],
+                'procHash': 'H398sjHd...kldjUYn475n',
+                'procUrl': 'https://alastria.github.io/data',
+                'data': [
+                    {
+                        '@context': [
+                            'https://www.w3.org/2018/credentials/v1',
+                            'https://alastria.github.io/identity/credentials/v1'
+                        ],
+                        'type': [
+                            'VerifiablePresentationRequest',
+                            'AlastriaVerifiablePresentationRequest'
+                        ],
+                        'levelOfAssurance': 0,
+                        'required': True,
+                        'field_name': 'field_1'
+                    },
+                    {
+                        '@context': [
+                            'https://www.w3.org/2018/credentials/v1',
+                            'https://alastria.github.io/identity/credentials/v1',
+                            'https://alastria.github.io/identity/covid'
+                        ],
+                        'type': [
+                            'VerifiablePresentationRequest',
+                            'AlastriaVerifiablePresentationRequest',
+                            'CustomType'
+                        ],
+                        'levelOfAssurance': 1,
+                        'required': False,
+                        'field_name': 'field_2'
+                    }
+                ]
+            }
+        }
+    }
+
+    jwt = PresentationRequest(
+        iss='did:alastria:quorum:testnet1:3eabc53a85',
+        cbu='https://alastria.github.io/callback',
+        proc_hash='H398sjHd...kldjUYn475n',
+        proc_url='https://alastria.github.io/data',
+        data=[
+            PresentationRequestData(required=True, field_name='field_1'),
+            PresentationRequestData(
+                required=False,
+                field_name='field_2',
+                context=['https://alastria.github.io/identity/covid'],
+                type=['CustomType'],
+                level_of_assurance=1
+            )
+        ],
+        jti='alastria',
+        exp=100,
+        nbf=200,
+        context=['https://alastria.github.io/identity/covid'],
+        type=['CustomType'],
+        kid='did:etc',
+        jwk='0x123456'
+    ).build_jwt()
+
+    assert jwt == expected_jwt
