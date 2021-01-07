@@ -1,0 +1,38 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 10
+
+    container:
+      image: python:3.8
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - uses: actions/setup-python@v1
+        with:
+          python-version: "3.8"
+          architecture: "x64"
+
+      - name: Set up poetry
+        run: |
+          pip3 install poetry
+          poetry config virtualenvs.create true
+          poetry config cache-dir
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry/virtualenvs
+          key: poetry-${{ runner.os }}-${{ hashFiles('poetry.lock') }}
+          restore-keys: |
+            poetry-${{ runner.os }}-
+
+      - name: install deps
+        run: poetry install
+
+      - name: Run tests
+        run: poetry run python -m coverage run -m pytest alastria_identity -v .
