@@ -6,3 +6,4 @@ from .identity_manager import IdentityManagerService
 from .parsers import ContractParser
 from .presentation_registry import PresentationRegistryService
 from .tokens import TokenService
+from .public_key import PublicKeyService
