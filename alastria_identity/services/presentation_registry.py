@@ -1,7 +1,7 @@
 from web3 import Web3
 
 from alastria_identity.types import (Transaction, NetworkDid)
-from alastria_identity.services import ContractsService, IDENTITY_MANAGER_ADDRESS
+from alastria_identity.services import ContractsService, PRESENTATION_REGISTRY_ADDRESS
 
 
 class PresentationRegistryService:
@@ -68,12 +68,12 @@ class PresentationRegistryService:
         data = self.delegated(encoded_abi) if delegated else encoded_abi
 
         return Transaction(
-            to=Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+            to=Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
             data=data)
 
     def delegated(self, delegated_data) -> str:
         return ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
             fn_name='delegateCall',
             args=[Web3.toChecksumAddress(
-                IDENTITY_MANAGER_ADDRESS), 0, delegated_data]
+                PRESENTATION_REGISTRY_ADDRESS), 0, delegated_data]
         )
