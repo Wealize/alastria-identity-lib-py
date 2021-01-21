@@ -3,7 +3,7 @@ from dataclasses import asdict
 from unittest.mock import patch
 from web3 import Web3
 
-from alastria_identity.services import PresentationRegistryService, IDENTITY_MANAGER_ADDRESS
+from alastria_identity.services import PresentationRegistryService, PRESENTATION_REGISTRY_ADDRESS
 
 
 @patch('alastria_identity.services.PresentationRegistryService.delegated')
@@ -23,7 +23,7 @@ def test_add_subject_presentation(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -63,7 +63,7 @@ def test_update_subject_presentation(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -103,7 +103,7 @@ def test_get_subject_presentation_status(
     ).encodeABI.return_value = 'getSubjectPresentationStatusReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
         'data': 'getSubjectPresentationStatusReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -141,7 +141,7 @@ def test_get_subject_presentation_list(
     ).encodeABI.return_value = 'getSubjectPresentationListReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
         'data': 'getSubjectPresentationListReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -179,7 +179,7 @@ def test_update_receiver_presentation(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -217,7 +217,7 @@ def test_get_receiver_presentation_status(
     ).encodeABI.return_value = 'getReceiverPresentationStatusReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
         'data': 'getReceiverPresentationStatusReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -255,7 +255,7 @@ def test_get_presentation_status(
     ).encodeABI.return_value = 'getPresentationStatusReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
         'data': 'getPresentationStatusReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -294,7 +294,7 @@ def test_delegated_call(
     mock_alastria_identity_manager.assert_called_with(web3_mock)
     mock_alastria_identity_manager(web3_mock).encodeABI.assert_called_with(
         fn_name='delegateCall',
-        args=[Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS), 0, data]
+        args=[Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS), 0, data]
     )
 
     assert transaction == 'delegatedValue'

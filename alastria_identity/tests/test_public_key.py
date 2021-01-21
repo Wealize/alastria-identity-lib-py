@@ -3,7 +3,7 @@ from dataclasses import asdict
 from unittest.mock import patch
 from web3 import Web3
 
-from alastria_identity.services import IDENTITY_MANAGER_ADDRESS, PublicKeyService
+from alastria_identity.services import PUBLIC_KEY_REGISTRY_ADDRESS, PublicKeyService
 
 
 @patch('alastria_identity.services.PublicKeyService.delegated')
@@ -21,7 +21,7 @@ def test_add_key(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PUBLIC_KEY_REGISTRY_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -59,7 +59,7 @@ def test_revoke_public_key(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PUBLIC_KEY_REGISTRY_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -96,7 +96,7 @@ def test_delete_public_key(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PUBLIC_KEY_REGISTRY_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -132,7 +132,7 @@ def test_get_current_public_key(
     ).encodeABI.return_value = 'getCurrentPublicKeyReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PUBLIC_KEY_REGISTRY_ADDRESS),
         'data': 'getCurrentPublicKeyReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -167,7 +167,7 @@ def test_get_public_key_status(
     ).encodeABI.return_value = 'getPublicKeyStatusReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
+        'to': Web3.toChecksumAddress(PUBLIC_KEY_REGISTRY_ADDRESS),
         'data': 'getPublicKeyStatusReturnValue',
         'gasPrice': 0,
         'gas': 600000,
