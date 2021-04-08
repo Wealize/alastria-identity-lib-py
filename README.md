@@ -24,10 +24,10 @@ docker-compose run --rm identity poetry run python -m coverage run -m pytest ala
 Create and check test coverage
 ```bash
 docker-compose run --rm identity poetry run coverage html
-npx http-server (or any local http server)
+python -m http.server 8000
 ```
 
-Open `http://localhost:8080` in your browser
+Open `http://localhost:8000` in your browser
 
 # TODO
 
