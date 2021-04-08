@@ -2,6 +2,18 @@
 
 Python version of the Alastria Identity lib
 
+# Installing
+
+```bash
+pip install alastria-identity
+```
+
+or you could use Poetry
+
+```bash
+poetry add alastria-identity
+```
+
 # Testing
 
 Execute tests
