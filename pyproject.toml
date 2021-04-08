@@ -1,12 +1,15 @@
 [tool.poetry]
-name = "alastria-identity-lib-py"
-version = "0.1.0"
+name = "alastria-identity"
+version = "0.2.0"
 description = ""
-authors = ["Javier Aguirre <javi@wealize.io>"]
+authors = ["Javier Aguirre <javi@wealize.digital>"]
 license = "MIT"
 packages = [
     { include = "alastria_identity" }
 ]
+homepage = "https://github.com/Wealize/alastria-identity-lib-py"
+repository = "https://github.com/Wealize/alastria-identity-lib-py"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
