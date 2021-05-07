@@ -1,6 +1,7 @@
-from mock import *
+from mock import Mock, patch
 from dataclasses import asdict
 from unittest.mock import patch
+
 from web3 import Web3
 
 from alastria_identity.services import (
