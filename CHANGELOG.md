@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## v0.3.0
+
 - Fix credential registry operations to use the correct smart contract address when delegated
 
 ## v0.2.0
