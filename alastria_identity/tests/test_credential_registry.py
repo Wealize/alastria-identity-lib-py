@@ -3,7 +3,10 @@ from dataclasses import asdict
 from unittest.mock import patch
 from web3 import Web3
 
-from alastria_identity.services import CredentialRegistryService, CREDENTIAL_REGISTRY_ADDRESS
+from alastria_identity.services import (
+    CredentialRegistryService,
+    CREDENTIAL_REGISTRY_ADDRESS,
+    IDENTITY_MANAGER_ADDRESS)
 from alastria_identity.types import Entity
 
 
@@ -19,7 +22,7 @@ def test_add_subject_credential(
         web3_mock).encodeABI.return_value = 'addSubjectCredentialReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': Web3.toChecksumAddress(CREDENTIAL_REGISTRY_ADDRESS),
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -47,7 +50,7 @@ def test_delete_subject_credential(
         web3_mock).encodeABI.return_value = 'deleteSubjectCredentialReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': Web3.toChecksumAddress(CREDENTIAL_REGISTRY_ADDRESS),
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -127,7 +130,7 @@ def test_add_issuer_credential(
         web3_mock).encodeABI.return_value = 'addIssuerCredentialReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': Web3.toChecksumAddress(CREDENTIAL_REGISTRY_ADDRESS),
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -183,7 +186,7 @@ def test_update_credential_status(
         web3_mock).encodeABI.return_value = 'updateCredentialStatusReturnValue'
     mock_delegated.return_value = 'delegatedReturnValue'
     expected_transaction = {
-        'to': Web3.toChecksumAddress(CREDENTIAL_REGISTRY_ADDRESS),
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
