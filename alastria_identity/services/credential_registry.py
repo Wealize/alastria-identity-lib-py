@@ -1,7 +1,10 @@
 from web3 import Web3
 
 from alastria_identity.types import (Transaction, NetworkDid)
-from alastria_identity.services import ContractsService, CREDENTIAL_REGISTRY_ADDRESS
+from alastria_identity.services import (
+    ContractsService,
+    CREDENTIAL_REGISTRY_ADDRESS,
+    IDENTITY_MANAGER_ADDRESS)
 
 
 class CredentialRegistryService:
@@ -66,9 +69,10 @@ class CredentialRegistryService:
         )
 
         data = self.delegated(encoded_abi) if delegated else encoded_abi
+        contract_address = IDENTITY_MANAGER_ADDRESS if delegated else CREDENTIAL_REGISTRY_ADDRESS
 
         return Transaction(
-            to=Web3.toChecksumAddress(CREDENTIAL_REGISTRY_ADDRESS),
+            to=Web3.toChecksumAddress(contract_address),
             data=data)
 
     def delegated(self, delegated_data) -> str:
