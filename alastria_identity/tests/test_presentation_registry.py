@@ -3,7 +3,10 @@ from dataclasses import asdict
 from unittest.mock import patch
 from web3 import Web3
 
-from alastria_identity.services import PresentationRegistryService, PRESENTATION_REGISTRY_ADDRESS
+from alastria_identity.services import (
+    PresentationRegistryService,
+    PRESENTATION_REGISTRY_ADDRESS,
+    IDENTITY_MANAGER_ADDRESS)
 
 
 @patch('alastria_identity.services.PresentationRegistryService.delegated')
@@ -23,7 +26,7 @@ def test_add_subject_presentation(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -63,7 +66,7 @@ def test_update_subject_presentation(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
@@ -179,7 +182,7 @@ def test_update_receiver_presentation(
     mock_delegated.return_value = 'delegatedReturnValue'
 
     expected_transaction = {
-        'to': Web3.toChecksumAddress(PRESENTATION_REGISTRY_ADDRESS),
+        'to': Web3.toChecksumAddress(IDENTITY_MANAGER_ADDRESS),
         'data': 'delegatedReturnValue',
         'gasPrice': 0,
         'gas': 600000,
