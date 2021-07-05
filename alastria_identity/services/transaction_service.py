@@ -28,7 +28,7 @@ class TransactionService:
             self.DEFAULT_CONTRACT_DELEGATED_NAME,
             self.endpoint)
 
-    def set_delegated_call(self, delegated_call_address: str):
+    def set_delegated_call(self, delegated_call_address: str) -> TransactionService:
         self.delegated_call_address = delegated_call_address
         return self
 
@@ -57,5 +57,5 @@ class TransactionService:
                 self.contract_address), 0, delegated_data]
         )
 
-    def is_delegated_call(self):
+    def is_delegated_call(self) -> bool:
         return bool(self.delegated_call_address)
