@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Removed all the hardcoded services to make the code cleaner. This is a backwards incompatible change since
+  the current methods to access smart contract functions weren't PEP8 standard, didn't comply with SRP nor DRY either.
+
 ## v0.4.0
 
 - Fix presentations registry operations to use the correct smart contract address when delegated
