@@ -21,7 +21,7 @@ class PresentationRequestData:
     context: List[str] = field(default_factory=list)
     type: List[str] = field(default_factory=list)
     level_of_assurance: int = 0
-    
+
     def build_data(self) -> dict:
         full_context = [
             'https://www.w3.org/2018/credentials/v1',
