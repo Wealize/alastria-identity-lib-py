@@ -8,8 +8,10 @@ from alastria_identity.services import (
 
 
 class PresentationRegistryService:
-    def __init__(self, endpoint: Web3):
+    def __init__(self, endpoint: Web3, config: dict):
         self.endpoint = endpoint
+        self.config = config
+        self.identity_manager_abi = ContractsService(self.config).get_contract_handler(self.endpoint)
 
     def add_subject_presentation(self, subject_presentation_hash: str, uri: str) -> Transaction:
         return self._build_transaction(
@@ -76,7 +78,7 @@ class PresentationRegistryService:
             data=data)
 
     def delegated(self, delegated_data) -> str:
-        return ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
+        return self.identity_manager_abi.encodeABI(
             fn_name='delegateCall',
             args=[Web3.toChecksumAddress(
                 PRESENTATION_REGISTRY_ADDRESS), 0, delegated_data]

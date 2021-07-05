@@ -8,8 +8,9 @@ from alastria_identity.services import (
 
 
 class CredentialRegistryService:
-    def __init__(self, endpoint: Web3):
+    def __init__(self, endpoint: Web3, config: dict):
         self.endpoint = endpoint
+        self.config
 
     def add_subject_credential(self, subject_credential_hash: str, uri: str) -> Transaction:
         return self._build_transaction(
@@ -63,7 +64,9 @@ class CredentialRegistryService:
             delegated=False)
 
     def _build_transaction(self, function_name: str, args: list, delegated: bool) -> Transaction:
-        encoded_abi = ContractsService.AlastriaCredentialRegistry(self.endpoint).encodeABI(
+        encoded_abi = ContractsService(self.config).get_contract_handler(
+            'AlastriaCredentialRegistry', self.endpoint
+        ).encodeABI(
             fn_name=function_name,
             args=args
         )
@@ -76,7 +79,9 @@ class CredentialRegistryService:
             data=data)
 
     def delegated(self, delegated_data) -> str:
-        return ContractsService.AlastriaIdentityManager(self.endpoint).encodeABI(
+        return ContractsService(self.config).get_contract_handler(
+            'AlastriaIdentityManager', self.endpoint
+        ).encodeABI(
             fn_name='delegateCall',
             args=[Web3.toChecksumAddress(
                 CREDENTIAL_REGISTRY_ADDRESS), 0, delegated_data]
