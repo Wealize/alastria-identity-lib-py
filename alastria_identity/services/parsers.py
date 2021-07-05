@@ -2,8 +2,10 @@ import json
 
 import requests
 
+from alastria_identity.types import ConfigParser
 
-class ContractParser:
+
+class ContractParser(ConfigParser):
     DEFAULT_GITHUB_URL = 'https://github.com/'
     DEFAULT_GITHUB_RAW_URL = 'https://raw.githubusercontent.com/'
 

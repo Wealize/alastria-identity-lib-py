@@ -4,13 +4,14 @@ import re
 import requests
 
 from .parsers import ContractParser
+from alastria_identity.types import ConfigParser
 
 
 class IdentityConfigBuilder:
     CONTRACT_NAME_REGEX = r'sol_(?P<name>.*)\.abi'
     CONTRACT_URL_POSITION = -2
 
-    def __init__(self, contracts_info_url: str, parser_class: ContractParser):
+    def __init__(self, contracts_info_url: str, parser_class: ConfigParser):
         self.parser_class = parser_class
         self.contracts_info_url = contracts_info_url
 

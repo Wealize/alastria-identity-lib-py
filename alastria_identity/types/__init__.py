@@ -11,6 +11,7 @@ from .transaction import Transaction
 from .entity import Entity
 from .credential import Credential
 from .presentation_request import PresentationRequest, PresentationRequestData
+from .config_parser import ConfigParser
 
 DEFAULT_GAS_LIMIT = 600000
 DEFAULT_NONCE = '0x0'
