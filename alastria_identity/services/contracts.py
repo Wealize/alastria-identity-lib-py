@@ -16,7 +16,7 @@ class ContractsService:
 
     def get_abi_by_contract_name(self, contract_name: str) -> list:
         try:
-            contract_config = self.config[contract_name]
+            contract_config = self.config[contract_name]['functions']
         except KeyError:
             raise ContractNameError(f'The contract {contract_name} does not exist')
 

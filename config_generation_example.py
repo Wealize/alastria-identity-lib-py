@@ -11,7 +11,6 @@ def main():
     config = builder.generate()
 
     # This is the format of the config
-    # We'll use config['functions'] for the TransactionService
     print(config)
 
 

@@ -8,25 +8,18 @@ class TransactionService:
     DEFAULT_DELEGATED_FUNCTION_NAME = 'delegateCall'
     DEFAULT_CONTRACT_DELEGATED_NAME = 'AlastriaIdentityManager'
 
-    def __init__(
-        self, config, contract_name, contract_address, endpoint
-    ):
+    def __init__(self, config, contract_name, endpoint):
         self.contract_name = contract_name
-        self.contract_address = contract_address
+        self.contract_address = self.config[contract_name]['address']
         self.endpoint = endpoint
         self.contract_handler = ContractsService(
             self.config
         ).get_contract_handler(
             contract_name, self.endpoint)
         self.delegated_call_address = None
-        self.identity_manager_contract = ContractsService(
-            self.config
-        ).get_contract_handler(
-            self.DEFAULT_CONTRACT_DELEGATED_NAME,
-            self.endpoint)
 
-    def set_delegated_call(self, delegated_call_address: str) -> TransactionService:
-        self.delegated_call_address = delegated_call_address
+    def enable_delegated_call(self):
+        self.delegated_call_address = self.config[self.DEFAULT_CONTRACT_DELEGATED_NAME]['address']
         return self
 
     def generate_transaction(
@@ -48,7 +41,13 @@ class TransactionService:
             data=payload)
 
     def delegated(self, delegated_data) -> str:
-        return self.identity_manager_contract.encodeABI(
+        identity_manager_contract = ContractsService(
+            self.config
+        ).get_contract_handler(
+            self.DEFAULT_CONTRACT_DELEGATED_NAME,
+            self.endpoint)
+
+        return identity_manager_contract.encodeABI(
             fn_name=self.DEFAULT_DELEGATED_FUNCTION_NAME,
             args=[Web3.toChecksumAddress(
                 self.contract_address), 0, delegated_data]
