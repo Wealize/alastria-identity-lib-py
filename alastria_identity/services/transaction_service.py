@@ -1,10 +1,7 @@
 from web3 import Web3
 
-from alastria_identity.types import (Transaction, NetworkDid)
-from alastria_identity.services import (
-    ContractsService,
-    CREDENTIAL_REGISTRY_ADDRESS,
-    IDENTITY_MANAGER_ADDRESS)
+from alastria_identity.types import Transaction, NetworkDid
+from alastria_identity.services import ContractsService
 
 
 class TransactionService:
