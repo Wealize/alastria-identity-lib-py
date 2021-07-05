@@ -4,7 +4,6 @@ from web3 import Web3
 
 from alastria_identity.services import (
     IdentityConfigBuilder, ContractParser, TransactionService)
-from alastria_identity.types import NetworkDid
 
 
 def main():
@@ -16,28 +15,35 @@ def main():
     )
     config = builder.generate()
 
-    # Non delegated call
     PROVIDER_NODE_URL = os.environ.get(
         'PROVIDER_NODE_URL', 'https://127.0.0.1/rpc')
-    web3_endpoint = Web3(Web3.HTTPProvider(PROVIDER_NODE_URL))
+    web3_instance = Web3(Web3.HTTPProvider(PROVIDER_NODE_URL))
 
+    # Non delegated call
+    PRESENTATION_REGISTRY_ADDRESS = '0x123'
     IDENTITY_MANAGER_ADDRESS = '0x123'
+    public_key = 'mykey'
+
+    transaction_service = TransactionService(
+        config,
+        'AlastriaPublicKeyRegistry',
+        PRESENTATION_REGISTRY_ADDRESS,
+        web3_instance)
+    public_key_response = transaction_service.generate_transaction(
+        'addKey',
+        [public_key]
+    )
+
     transaction_service = TransactionService(
         config,
         'AlastriaIdentityManager',
         IDENTITY_MANAGER_ADDRESS,
-        web3_endpoint)
+        web3_instance)
+    transaction_service.generate_transaction(
+        'createAlastriaIdentity',
+        [public_key_response]
+    )
 
-    DELEGATED_ADDRESS = '0x12345'
-    sign_did = 'mydid:123456'
-
-    # We can use NetworkDid to get the proxy_address out of a did
-    sign_address = NetworkDid.from_did(sign_did).proxy_address
-
-    transaction_service.set_delegated(
-        DELEGATED_ADDRESS
-    ).generate_transaction(
-        'prepareAlastriaID', [sign_address])
 
 if __name__ == '__main__':
     main()

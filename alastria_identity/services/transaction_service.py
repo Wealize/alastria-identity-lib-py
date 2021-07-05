@@ -11,9 +11,12 @@ class TransactionService:
     DEFAULT_DELEGATED_FUNCTION_NAME = 'delegateCall'
     DEFAULT_CONTRACT_DELEGATED_NAME = 'AlastriaIdentityManager'
 
-    def __init__(self, config, contract_name, contract_address):
+    def __init__(
+        self, config, contract_name, contract_address, endpoint
+    ):
         self.contract_name = contract_name
         self.contract_address = contract_address
+        self.endpoint = endpoint
         self.contract_handler = ContractsService(
             self.config
         ).get_contract_handler(

@@ -1,3 +1,7 @@
+import os
+
+from web3 import Web3
+
 from alastria_identity.services import (
     IdentityConfigBuilder, ContractParser, TransactionService)
 
@@ -12,9 +16,16 @@ def main():
     config = builder.generate()
 
     # Non delegated call
+    PROVIDER_NODE_URL = os.environ.get(
+        'PROVIDER_NODE_URL', 'https://127.0.0.1/rpc')
+    web3_endpoint = Web3(Web3.HTTPProvider(PROVIDER_NODE_URL))
+
     PUBLIC_KEY_REGISTRY_ADDRESS = '0x123'
     transaction_service = TransactionService(
-        config, 'AlastriaPublicKeyRegistry', PUBLIC_KEY_REGISTRY_ADDRESS)
+        config,
+        'AlastriaPublicKeyRegistry',
+        PUBLIC_KEY_REGISTRY_ADDRESS,
+        web3_endpoint)
 
     subject_address, public_key = '0x12345', '12345'
     transaction_service.generate_transaction(
