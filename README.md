@@ -49,7 +49,7 @@ You can check in different files utilities that might be useful to you.
 - **Provider node url**: It's the url (with `/rpc` endpoint) of the node you want to connect in which the library can interact with the Alastria identity
   smart contracts.
 - **Contracts info**: It's the file Alastria members created to be loaded to the identity libraries. You can't change it using the javascript library but you can set it in this one. We generate the configuration the Transaction service uses on the fly.
-- **Contract names**: The contract names you need to use the library, in this case you can check the Alastria examples in the [ContractsInfo file]( 'https://raw.githubusercontent.com/alastria/alastria-identity/master/contracts/ContractInfo.md')
+- **Contract names**: The contract names you need to use the library, in this case you can check the Alastria examples in the [ContractsInfo file]( 'https://raw.githubusercontent.com/alastria/alastria-identity/master/contracts/ContractInfo.md'). You can check it better formatted pasting it to [codebeautify.org](https://codebeautify.org/python-formatter-beautifier).
 - **Contract addresses**: As the one above It's self-explanatory, the address of the smart contract deployed you want to use.
 
 ## TODO
