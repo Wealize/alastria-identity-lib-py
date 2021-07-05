@@ -59,6 +59,7 @@ You can check in different files utilities that might be useful to you.
 - ~Create the PyPI package and push it to pypi.org~
 - Test the connection with the identity Alastria network node
 - ~Delegate calls is still a WIP, we need to finish that~
+- Get address from the ContractInfo data
 
 ## Contributors
 
