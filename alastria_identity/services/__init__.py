@@ -6,10 +6,10 @@ from .contracts import (
     PRESENTATION_REGISTRY_ADDRESS,
     CREDENTIAL_REGISTRY_ADDRESS
 )
-from .credential_registry import CredentialRegistryService
 from .identity import UserIdentityService
 from .identity_manager import IdentityManagerService
 from .parsers import ContractParser
 from .presentation_registry import PresentationRegistryService
 from .tokens import TokenService
 from .public_key import PublicKeyService
+from .transaction_service import TransactionService
