@@ -44,8 +44,8 @@ class IdentityConfigBuilder:
             contracts_raw_response.content.decode('utf-8')))
 
     def extract_contract_item_from_response(
-        self, contracts_content: List[dict]
-    ) -> List[str]:
+        self, contracts_content: str
+    ) -> List[dict]:
         return map(
             lambda contract_line: {
                 'url': contract_line.split('|')[self.CONTRACT_URL_POSITION].strip(),

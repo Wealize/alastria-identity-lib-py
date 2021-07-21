@@ -9,6 +9,7 @@ class TransactionService:
     DEFAULT_CONTRACT_DELEGATED_NAME = 'AlastriaIdentityManager'
 
     def __init__(self, config, contract_name, endpoint):
+        self.config = config
         self.contract_name = contract_name
         self.contract_address = self.config[contract_name]['address']
         self.endpoint = endpoint
