@@ -20,18 +20,13 @@ def main():
         'PROVIDER_NODE_URL', 'https://127.0.0.1/rpc')
     web3_endpoint = Web3(Web3.HTTPProvider(PROVIDER_NODE_URL))
 
-    PRESENTATION_REGISTRY_ADDRESS = '0x123'
     transaction_service = TransactionService(
         config,
         'AlastriaPresentationRegistry',
-        PRESENTATION_REGISTRY_ADDRESS,
         web3_endpoint)
 
-    DELEGATED_ADDRESS = '0x12345'
-    receiver_presentation_hash, status = 'myhash', 'active'
-    transaction_service.set_delegated(
-        DELEGATED_ADDRESS
-    ).generate_transaction(
+    receiver_presentation_hash, status = b'myhash', 1
+    transaction_service.enable_delegated_call().generate_transaction(
         'updateReceiverPresentation', [receiver_presentation_hash, status])
 
 if __name__ == '__main__':

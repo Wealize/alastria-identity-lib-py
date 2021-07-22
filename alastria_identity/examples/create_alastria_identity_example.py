@@ -4,6 +4,7 @@ from web3 import Web3
 
 from alastria_identity.services import (
     IdentityConfigBuilder, ContractParser, TransactionService)
+from alastria_identity.types import Transaction
 
 
 def main():
@@ -20,28 +21,24 @@ def main():
     web3_instance = Web3(Web3.HTTPProvider(PROVIDER_NODE_URL))
 
     # Non delegated call
-    PRESENTATION_REGISTRY_ADDRESS = '0x123'
-    IDENTITY_MANAGER_ADDRESS = '0x123'
-    public_key = 'mykey'
+    PUBLIC_KEY = os.environ.get('PUBLIC_KEY', 'mykey')
 
     transaction_service = TransactionService(
         config,
         'AlastriaPublicKeyRegistry',
-        PRESENTATION_REGISTRY_ADDRESS,
         web3_instance)
-    public_key_response = transaction_service.generate_transaction(
+    transaction_response: Transaction = transaction_service.generate_transaction(
         'addKey',
-        [public_key]
+        [PUBLIC_KEY]
     )
 
     transaction_service = TransactionService(
         config,
         'AlastriaIdentityManager',
-        IDENTITY_MANAGER_ADDRESS,
         web3_instance)
-    transaction_service.generate_transaction(
+    transaction_response: Transaction = transaction_service.generate_transaction(
         'createAlastriaIdentity',
-        [public_key_response]
+        [transaction_response.data]
     )
 
 

@@ -20,22 +20,17 @@ def main():
         'PROVIDER_NODE_URL', 'https://127.0.0.1/rpc')
     web3_endpoint = Web3(Web3.HTTPProvider(PROVIDER_NODE_URL))
 
-    PUBLIC_KEY_REGISTRY_ADDRESS = '0x123'
     transaction_service = TransactionService(
         config,
         'AlastriaPublicKeyRegistry',
-        PUBLIC_KEY_REGISTRY_ADDRESS,
         web3_endpoint)
 
-    subject_address, public_key = '0x12345', '12345'
+    subject_address = Web3.toChecksumAddress('0xee2d1fe7b0d4571155c93497a7a9bde56fb87b40')
+    public_key = b'12345'
     transaction_service.generate_transaction(
         'getPublicKeyStatus', [subject_address, public_key])
 
-    DELEGATED_ADDRESS = '0x12345'
-    subject_address = '0x12344'
-    transaction_service.set_delegated_call(
-        DELEGATED_ADDRESS
-    ).generate_transaction(
+    transaction_service.enable_delegated_call().generate_transaction(
         'deletePublicKey', [subject_address])
 
 if __name__ == '__main__':
