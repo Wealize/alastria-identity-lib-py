@@ -57,7 +57,7 @@ You can check in different files utilities that might be useful to you.
 - ~This README~
 - ~Add more code examples~ [You can check them here](https://github.com/Wealize/alastria-identity-lib-py/tree/main/alastria_identity/examples)
 - ~Create the PyPI package and push it to pypi.org~
-- Test the connection with the identity Alastria network node
+- ~Test the connection with the identity Alastria network node~
 - ~Delegate calls is still a WIP, we need to finish that~
 - ~Get address from the ContractInfo data~
 
