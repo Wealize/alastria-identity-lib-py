@@ -2,8 +2,13 @@ import json
 
 import requests
 
+from alastria_identity.types import ConfigParser
 
-class ContractParser:
+
+class ContractParser(ConfigParser):
+    DEFAULT_GITHUB_URL = 'https://github.com/'
+    DEFAULT_GITHUB_RAW_URL = 'https://raw.githubusercontent.com/'
+
     def __init__(self, contract_url):
         self.contract_url = contract_url
 
@@ -31,8 +36,8 @@ class ContractParser:
 
     def get_json_data_from_url(self):
         contract_url = self.contract_url.replace(
-            'https://github.com/',
-            'https://raw.githubusercontent.com/'
+            self.DEFAULT_GITHUB_URL,
+            self.DEFAULT_GITHUB_RAW_URL,
         ).replace(
             'blob/',
             ''

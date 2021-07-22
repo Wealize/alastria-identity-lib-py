@@ -1,0 +1,1 @@
+class ContractNameError(Exception): pass

@@ -31,16 +31,16 @@ class TokenService:
         return hex_data
 
     @staticmethod
-    def create_did(network_did: NetworkDid):
+    def create_did(network_did: NetworkDid) -> str:
         return f'did:ala:{network_did.network}:{network_did.network_id}:{network_did.proxy_address}'
 
-    def sign_jwt(self, jwt_data: JwtToken):
+    def sign_jwt(self, jwt_data: JwtToken) -> str:
         token = jwt.JWT(header=jwt_data.header,
                         claims=jwt_data.payload, algs=[self.algorithm])
         token.make_signed_token(self.signing_key)
         return token.serialize()
 
-    def verify_jwt(self, jwt_data: str, raw_public_key: str):
+    def verify_jwt(self, jwt_data: str, raw_public_key: str) -> bool:
         try:
             pem = VerifyingKey.from_string(decode_hex(
                 raw_public_key), curve=SECP256k1).to_pem()
@@ -54,7 +54,7 @@ class TokenService:
             return False
 
     @staticmethod
-    def decode_jwt(jwt_data: str):
+    def decode_jwt(jwt_data: str) -> dict:
         jws_token = jws.JWS(jwt_data)
         jws_token.deserialize(jwt_data)
         return {
